@@ -1,0 +1,6 @@
+# data
+ncdoublescrape==0.0.1
+csvkit==1.0.2
+
+# website
+Flask==0.12.2
