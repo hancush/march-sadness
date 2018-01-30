@@ -7,8 +7,7 @@ scraped/%.json :
 	in2csv $< > $@
 
 joined.csv : bpi.csv colors.csv
-	csvjoin --left -c team bpi.csv colors.csv | \
-	csvcut -C 9 > $@
+	csvjoin --left -c team bpi.csv colors.csv > $@
 
 march_sadness/static/data/teams.json : joined.csv
 	csvjson $< > $@
