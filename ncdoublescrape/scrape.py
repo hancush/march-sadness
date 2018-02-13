@@ -23,6 +23,11 @@ class Command(object):
         )
 
         self.subparser.add_argument(
+            '--seeds', nargs='?', const='2017',
+            help='scrape seeds, bpi, & color blob for the given year from http://games.espn.com/tournament-challenge-bracket/YEAR/en/nationalBracket'
+        )
+
+        self.subparser.add_argument(
             '--datadir', default='scraped',
             help='directory in which to stash scraped stuff'
         )
@@ -67,7 +72,7 @@ class Command(object):
     def _get_text(self, cell):
         link = cell.find('a/span')
         if link:
-            return link.find('span').text #, link.find('abbr').text
+            return link.find('span').text, link.find('abbr').text
         else:
             return cell.text
 
@@ -78,7 +83,14 @@ class Command(object):
         rows = []
 
         for row in table_rows:
-            rows.append([self._get_text(td) for td in row.iterchildren('td')])
+            data = []
+            for td in row.iterchildren('td'):
+                text = self._get_text(td)
+                if type(text) == tuple:  # team name / team abbreviation
+                    data += [*text]
+                else:
+                    data.append(text)
+            rows.append(data)
 
         return rows
 
@@ -91,21 +103,27 @@ class Command(object):
 
         data = []
 
+        fields = ['rank', 'team', 'abbreviated_team', 'conference', 'record',
+                  'offensive_bpi', 'defensive_bpi', 'bpi']
+
         for i in range(1, int(last_page) + 1):
             page = requests.get(base_url + 'page/{}'.format(i))
             rows = self._parse_data_table(page)
             for row in rows:
-                data.append({
-                    'rank': row[0],
-                    'team': row[1],
-                    'conference': row[2],
-                    'record': row[3],
-                    'offensive_bpi': row[4],
-                    'defensive_bpi': row[5],
-                    'bpi': row[6],
-                })
+                data.append(dict(zip(fields, row)))
 
         return data
+
+    def team_seeds(self, year=2017):
+        base_url = 'http://games.espn.com/tournament-challenge-bracket/{year}/en/nationalBracket'
+
+        page = requests.get(base_url.format(year=str(year)))
+        tree = etree.HTML(page.text)
+
+        script, = tree.xpath('//div[@id="global-viewport"]/following::script[1]')
+        data = script.text.partition('scoreboard_teams = [')[2].partition(']')[0]
+
+        return json.loads('[{}]'.format(data))
 
     def handle(self, args, other):
         self._make_if_not_exists(args.datadir)
@@ -117,3 +135,8 @@ class Command(object):
         if args.bpi:
             bpi = self.team_bpi()
             self._write_json(os.path.join(args.datadir, 'bpi.json'), bpi)
+
+        if args.seeds:
+            year = args.seeds
+            seeds = self.team_seeds(year)
+            self._write_json(os.path.join(args.datadir, 'seeds.json'), seeds)
