@@ -6,4 +6,4 @@ clean :
 	rm $(DATA_FILE)
 
 $(DATA_FILE) :
-	python refresh_data.py > $@
+	python march_sadness/refresh_data.py > $@
