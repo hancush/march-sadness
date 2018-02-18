@@ -1,13 +1,9 @@
-.INTERMEDIATE : bpi.csv colors.csv joined.csv
+DATA_FILE=march_sadness/static/data/teams.json
 
-scraped/%.json :
-	ncds scrape --$*
+refresh : clean $(DATA_FILE)
 
-%.csv : scraped/%.json
-	in2csv $< > $@
+clean :
+	rm $(DATA_FILE)
 
-joined.csv : bpi.csv colors.csv
-	csvjoin --left -c team bpi.csv colors.csv > $@
-
-march_sadness/static/data/teams.json : joined.csv
-	csvjson $< > $@
+$(DATA_FILE) :
+	python refresh_data.py > $@
