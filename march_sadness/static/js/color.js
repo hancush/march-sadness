@@ -1,4 +1,5 @@
 var initial_color = tinycolor.random().toHexString();
+var selected_color;
 
 $('#color-pick').colorpicker({
   'color': initial_color,
@@ -18,6 +19,6 @@ var set_background_color = function(color) {
 set_background_color(initial_color);
 
 $('body').on('colorpickerChange', function(e) {
-  var selected_color = e.color.toRgbString();
+  selected_color = e.color.toRgbString();
   set_background_color(selected_color);
 });
