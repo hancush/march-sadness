@@ -7,13 +7,15 @@ var secret_sauce;
 
 $.get('static/data/teams.json', function(data) {
     $.each(data, function(i, team) {
-      if ( team.sl <= 15 ) {
+      var region = get_region(team);
+
+      if ( region == 'south' ) {
         south.push(team);
-      } else if ( team.sl <= 31 ) {
+      } else if ( region == 'west' ) {
         west.push(team);
-      } else if ( team.sl <= 47 ) {
+      } else if ( region == 'east' ) {
         east.push(team);
-      } else if ( team.sl <= 63 ) {
+      } else if ( region == 'midwest' ) {
         midwest.push(team);
       }
     });
@@ -114,7 +116,6 @@ function compare_bpi(team1, team2) {
 }
 
 function render_matchup(team1, team2, victor, element) {
-  console.log(element);
   $(element).append(`
     <div class="matchup">
       <p>
@@ -157,10 +158,10 @@ function run(color) {
   render_matchup(left, right, national_champ, '#final-2');
 
   $('#champion').append(`
-    <div class="winner">
+    <div>
       <h2><strong>🎊 ${ national_champ.n } 🎊</strong></h2>
       <h3>
-        #${ national_champ.s } in ${ get_region(national_champ) }<br />
+        #${ national_champ.s } in the ${ get_region(national_champ) }<br />
         #1 in the country<br />
         #1 in your heart<br />
         (for the next month)
