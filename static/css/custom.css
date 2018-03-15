@@ -1,0 +1,11 @@
+div.matchup {
+    font-size: 8pt;
+    background-color: white;
+    color: #000;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    height: 5em;
+    width: 20em;
+    padding: 1em;
+    margin: 1em;
+}

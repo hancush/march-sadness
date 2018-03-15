@@ -1,5 +1,5 @@
 var initial_color = tinycolor.random().toHexString();
-var selected_color;
+var selected_color = $('body').css('background-color');
 
 $('#color-pick').colorpicker({
   'color': initial_color,
@@ -21,4 +21,12 @@ set_background_color(initial_color);
 $('body').on('colorpickerChange', function(e) {
   selected_color = e.color.toRgbString();
   set_background_color(selected_color);
+});
+
+$('#go').click(function() {
+    run(selected_color);
+
+    if ( $(this).text().trim() === 'participate socially!' ) {
+      $(this).text('go again!');
+    }
 });

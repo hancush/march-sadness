@@ -9,24 +9,94 @@ custom_js:
 ---
 
 <div class="row">
-  <div class="col-2"></div>
   <div class="col">
     <br />
     <h1><img src="static/img/hoop.gif" width="75" /> march sadness</h1>
-    <p class="lead">if u love ur friends but hate basketball, let the computer do your brack for you.</p>
+    <p class="lead">if u love ur friends but hate basketball, let the computer do your bracket for you.</p>
 
-    <p>75 percent of the time it returns the better team as measured by power index ranking. 25 percent of the time it returns the underdog. for teams within 15 spots of one another, it returns whichever team has a color closest to the one you choose right now.</p>
+    <p>two-thirds of the time, it returns the better team as measured by power index ranking. one-third of the time it returns the underdog. for teams within 20 spots of one another (in terms of bpi ranking), it returns whichever team has the color closest to your fave!</p>
+
+    <p>speaking of, pick yr color now. 👇</p>
 
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text">color!</div>
+        <div class="input-group-text">🌈</div>
       </div>
       <input id="color-pick" type="text" class="form-control" />
     </div><br />
 
-    <button class="btn btn-lg btn-dark float-right">
+    <button class="btn btn-lg btn-dark float-right" id="go">
       participate socially!
     </button>
   </div>
-  <div class="col-2"></div>
+</div>
+
+<div class="clear-fix">&nbsp;</div>
+
+<div id="the-good-stuff" class="row collapse">
+
+  <div class="container h-80">
+    <h2>
+      <strong>~* the final four *~</strong>
+      <small>a.k.a. who wins?</small>
+    </h2>
+    <div class="row align-items-center h-80">
+      <div class="col mx-auto result" id="final-4"></div>
+      <div class="col mx-auto result" id="final-2"></div>
+      <div class="col-mx-auto result text-center" id="champion"></div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="container">
+  <h2><strong>everything else...</strong></h2>
+  </div>
+
+  <div class="container h-80">
+    <h3>south</h3>
+    <div class="row align-items-center h-80">
+      <div class="col mx-auto result" id="south-16"></div>
+      <div class="col mx-auto result" id="south-8"></div>
+      <div class="col mx-auto result" id="south-4"></div>
+      <div class="col mx-auto result" id="south-2"></div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="container h-80">
+    <h3>west</h3>
+    <div class="row align-items-center h-80">
+      <div class="col mx-auto result" id="west-16"></div>
+      <div class="col mx-auto result" id="west-8"></div>
+      <div class="col mx-auto result" id="west-4"></div>
+      <div class="col mx-auto result" id="west-2"></div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="container h-80">
+    <h3>east</h3>
+    <div class="row align-items-center h-80">
+      <div class="col mx-auto result" id="east-16"></div>
+      <div class="col mx-auto result" id="east-8"></div>
+      <div class="col mx-auto result" id="east-4"></div>
+      <div class="col mx-auto result" id="east-2"></div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="container h-80">
+    <h3>midwest</h3>
+    <div class="row align-items-center h-80">
+      <div class="col mx-auto result" id="midwest-16"></div>
+      <div class="col mx-auto result" id="midwest-8"></div>
+      <div class="col mx-auto result" id="midwest-4"></div>
+      <div class="col mx-auto result" id="midwest-2"></div>
+    </div>
+  </div>
+
 </div>
