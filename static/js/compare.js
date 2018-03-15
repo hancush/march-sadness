@@ -79,7 +79,7 @@ function compare_region(region) {
 }
 
 function compare_teams(team1, team2) {
-  var too_close_for_science = Math.abs(team1.bpi - team2.bpi) < 20;
+  var too_close_for_science = Math.abs(team1.bpi - team2.bpi) < 15;
 
   if ( too_close_for_science ) {
     return compare_colors(secret_sauce, team1, team2);
@@ -104,7 +104,7 @@ function compare_bpi(team1, team2) {
   var ordered = [team1, team2].sort(function(a, b) { return a.bpi - b.bpi });
 
   // return underdog a quarter of the time
-  var underdog = Math.random() <= 0.33;
+  var underdog = Math.random() <= 0.25;
 
   if ( underdog ) {
     return ordered[1];
