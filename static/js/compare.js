@@ -92,7 +92,10 @@ function compare_teams(team1, team2) {
 
 function compare_colors(base_color, team1, team2) {
   function color_sort(a, b) {
-    return chroma.distance(base_color, a.c) - chroma.distance(base_color, b.c);
+    var color_a = a.c ? a.c : '000000';
+    var color_b = a.c ? a.c : '000000';
+
+    return chroma.distance(base_color, color_a) - chroma.distance(base_color, color_b);
   }
 
   // order teams by color distance
@@ -106,7 +109,7 @@ function compare_bpi(team1, team2) {
   var ordered = [team1, team2].sort(function(a, b) { return a.bpi - b.bpi });
 
   // return underdog a quarter of the time
-  var underdog = Math.random() <= 0.25;
+  var underdog = Math.random() <= 0.33;
 
   if ( underdog ) {
     return ordered[1];
