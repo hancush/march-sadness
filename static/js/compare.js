@@ -24,11 +24,11 @@ $.get('static/data/teams.json', function(data) {
 
 function get_region(team) {
   if ( team.sl <= 15 ) {
-    return 'south';
+    return 'east';
   } else if ( team.sl <= 31 ) {
     return 'west';
   } else if ( team.sl <= 47 ) {
-    return 'east';
+    return 'south';
   } else if ( team.sl <= 63 ) {
     return 'midwest';
   }
